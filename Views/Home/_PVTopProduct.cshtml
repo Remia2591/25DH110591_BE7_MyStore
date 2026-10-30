@@ -1,0 +1,39 @@
+﻿@model _25DH110591_MyStore.Models.ViewModel.ProductDetailVM
+@using PagedList.Mvc
+
+@if (Model.TopProducts != null && Model.TopProducts.Count > 0)
+{
+    <section style="margin-top:30px;">
+        <h2>Top Deals</h2>
+
+        <div style="display:flex; flex-wrap:wrap; gap:15px;">
+            @foreach (var product in Model.TopProducts)
+            {
+                <div style="width:180px; border:1px solid #ccc; padding:10px;">
+                    <a href="@Url.Action("ProductDetail", "Home", new { id = product.ProductID })">
+                        @if (!string.IsNullOrEmpty(product.ProductImage))
+                        {
+                            <img src="@Url.Content("~/Content/Images/" + product.ProductImage)"
+                                 style="width:100%; height:180px; object-fit:contain;" />
+                        }
+                    </a>
+
+                    <p>
+                        <strong>@product.ProductName</strong>
+                    </p>
+
+                    <p>@product.ProductPrice</p>
+
+                    <p>@product.Category.CategoryName</p>
+                </div>
+            }
+        </div>
+
+        <div class="pagination-container">
+            @Html.PagedListPager(
+                     Model.TopProducts,
+                     page => Url.Action("ProductDetail",
+                         new{id = Model.Product.ProductID,quantity = Model.Quantity,page = page}))
+        </div>
+    </section>
+}

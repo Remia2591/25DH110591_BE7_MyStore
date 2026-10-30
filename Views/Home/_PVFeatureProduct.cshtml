@@ -1,0 +1,35 @@
+﻿@model _25DH110591_MyStore.Models.ViewModel.HomeProductVM
+
+@if (Model.FeaturedProducts != null && Model.FeaturedProducts.Count > 0)
+{
+    <section>
+        <h2>Sản phẩm nổi bật</h2>
+
+        <div style="display:flex; gap:15px; overflow-x:auto;">
+            @foreach (var product in Model.FeaturedProducts)
+            {
+                <div style="width:180px; border:1px solid #ccc; padding:10px;">
+                    <a href="@Url.Action("ProductDetail", "Home", new { id = product.ProductID })">
+                        @if (!string.IsNullOrEmpty(product.ProductImage))
+                        {
+                            <img src="@Url.Content("~/Content/Images/" + product.ProductImage)"
+                                 style="width:100%; height:180px; object-fit:contain;" />
+                        }
+                    </a>
+
+                    <p>
+                        <strong>@product.ProductName</strong>
+                    </p>
+
+                    <p>
+                        @product.ProductPrice
+                    </p>
+
+                    <p>
+                        @product.Category.CategoryName
+                    </p>
+                </div>
+            }
+        </div>
+    </section>
+}

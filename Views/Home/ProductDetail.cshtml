@@ -1,0 +1,88 @@
+﻿@model _25DH110591_MyStore.Models.ViewModel.ProductDetailVM
+
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<div style="margin-top:30px;">
+
+    <div style="display:flex; gap:40px;">
+
+        <div style="width:300px;">
+            @if (!string.IsNullOrEmpty(Model.Product.ProductImage))
+            {
+                <img src="@Url.Content("~/Content/Images/" + Model.Product.ProductImage)"
+                     style="width:100%; max-height:350px; object-fit:contain;" />
+            }
+        </div>
+
+        <div style="flex:1;">
+            <h2>@Model.Product.ProductName</h2>
+
+            <p>
+                <strong>Giá:</strong>
+                @Model.Product.ProductPrice
+            </p>
+
+            <p>
+                <strong>Danh mục:</strong>
+                @Model.Product.Category.CategoryName
+            </p>
+
+            <p>
+                <strong>Mô tả:</strong>
+            </p>
+
+            <p>
+                @Model.Product.ProductDecription
+            </p>
+        </div>
+
+        <div style="width:250px;">
+            @using (Html.BeginForm("ProductDetail", "Home", FormMethod.Get))
+            {
+                @Html.Hidden("id", Model.Product.ProductID)
+
+                <h4>Số lượng</h4>
+
+                @Html.TextBoxFor(
+                         model => model.Quantity,
+                         new
+                         {
+                             type = "number",
+                             min = "1",
+                             @class = "form-control"
+                         })
+                <br />
+                <button type="submit" class="btn btn-default">
+                    Cập nhật
+                </button>
+            }
+
+            <br />
+
+            <h4>Tạm tính</h4>
+
+            <p>
+                <strong>@Model.EstimatedValue</strong>
+            </p>
+
+            <a href="@Url.Action("AddToCart", "Cart",
+         new
+         {
+             id = Model.Product.ProductID,
+             quantity = Model.Quantity
+         })"
+               class="btn btn-primary">
+                Thêm vào giỏ hàng
+            </a>
+        </div>
+
+    </div>
+
+    @Html.Partial("_PVRelatedProduct", Model)
+    <hr />
+    @Html.Partial("_PVTopProduct", Model)
+
+</div>

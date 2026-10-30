@@ -1,0 +1,68 @@
+﻿@model _25DH110591_MyStore.Models.ViewModel.RegisterVM
+
+@{
+    ViewBag.Title = "Đăng ký tài khoản";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<div style="max-width:550px; margin:30px auto;">
+    <h2>Đăng ký tài khoản</h2>
+    <hr />
+
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group mb-3">
+            <label>Tên đăng nhập</label>
+            @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Mật khẩu</label>
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Xác nhận mật khẩu</label>
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Họ tên</label>
+            @Html.TextBoxFor(m => m.CustomerName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.CustomerName, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Số điện thoại</label>
+            @Html.TextBoxFor(m => m.CustomerPhone, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.CustomerPhone, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Email</label>
+            @Html.TextBoxFor(m => m.CustomerEmail, new { @class = "form-control", type = "email" })
+            @Html.ValidationMessageFor(m => m.CustomerEmail, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Địa chỉ</label>
+            @Html.TextBoxFor(m => m.CustomerAddress, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.CustomerAddress, "", new { @class = "text-danger" })
+        </div>
+
+        <button type="submit" class="btn btn-info w-100">
+            Đăng ký
+        </button>
+
+        <p style="margin-top:15px;">
+            Bạn đã có tài khoản?
+            @Html.ActionLink("Đăng nhập", "Login", "Account")
+        </p>
+    }
+</div>

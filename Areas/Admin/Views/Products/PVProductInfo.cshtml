@@ -1,0 +1,26 @@
+﻿@model _25DH110591_MyStore.Models.Product
+<div class="row">
+    <div class="col-md-3">
+        @if (!string.IsNullOrEmpty(Model.ProductImage))
+        {
+            <img src="@Url.Content("~/Content/Images/" + Model.ProductImage)"
+                 style="max-width:250px; height:250px;" />
+        }
+    </div>
+
+    <div class="col-md-9 bg-info">
+        <dl>
+            <dt>Tên sản phẩm</dt>
+            <dd>@Html.DisplayFor(model => model.ProductName)</dd>
+
+            <dt>Mô tả</dt>
+            <dd>@Html.DisplayFor(model => model.ProductDecription)</dd>
+
+            <dt>Đơn giá</dt>
+            <dd>@Html.DisplayFor(model => model.ProductPrice)</dd>
+
+            <dt>Danh mục</dt>
+            <dd>@Html.DisplayFor(model => model.Category.CategoryName)</dd>
+        </dl>
+    </div>
+</div>

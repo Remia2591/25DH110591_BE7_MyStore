@@ -1,0 +1,52 @@
+﻿@model _25DH110591_MyStore.Models.Product
+<div class="form-group">
+    <label class="control-label col-md-2">Danh mục</label>
+    <div class="col-md-10">
+        @Html.DropDownList("CategoryID", null, htmlAttributes: new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-md-2">Tên sản phẩm</label>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.ProductName,
+            new { htmlAttributes = new { @class = "form-control" } })
+
+        @Html.ValidationMessageFor(model => model.ProductName, "",
+            new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-md-2">Mô tả</label>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.ProductDecription,
+            new { htmlAttributes = new { @class = "form-control" } })
+
+        @Html.ValidationMessageFor(model => model.ProductDecription, "",
+            new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-md-2">Đơn giá</label>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.ProductPrice,
+            new { htmlAttributes = new { @class = "form-control" } })
+
+        @Html.ValidationMessageFor(model => model.ProductPrice, "",
+            new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-md-2">Hình ảnh</label>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.ProductImage,
+            new { htmlAttributes = new { @class = "form-control" } })
+
+        @Html.ValidationMessageFor(model => model.ProductImage, "",
+            new { @class = "text-danger" })
+    </div>
+</div>

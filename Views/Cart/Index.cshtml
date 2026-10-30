@@ -1,0 +1,85 @@
+﻿@model _25DH110591_MyStore.Models.ViewModel.Cart
+
+@{
+    ViewBag.Title = "Giỏ hàng";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<h2>Giỏ hàng</h2>
+
+@if (Model.Items != null && Model.Items.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Ảnh</th>
+                <th>Tên sản phẩm</th>
+                <th>Đơn giá</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
+                <th>Xóa</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.ProductImage))
+                        {
+                            <img src="@Url.Content("~/Content/Images/" + item.ProductImage)"
+                                 style="width:80px; height:80px; object-fit:contain;" />
+                        }
+                    </td>
+
+                    <td>@item.ProductName</td>
+
+                    <td>@item.UnitPrice</td>
+
+                    <td>
+                        @using (Html.BeginForm("UpdateQuantity", "Cart", FormMethod.Get))
+                        {
+                            @Html.Hidden("id", item.ProductID)
+
+                            <input type="number"
+                                   name="quantity"
+                                   value="@item.Quantity"
+                                   min="1"
+                                   style="width:70px;" />
+
+                            <button type="submit" class="btn btn-default btn-sm">
+                                Cập nhật
+                            </button>
+                        }
+                    </td>
+
+                    <td>@item.TotalPrice</td>
+
+                    <td>
+                        <a href="@Url.Action("RemoveFromCart", "Cart", new { id = item.ProductID })">
+                            Xóa
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h4>
+        Tổng tiền: @Model.TotalValue()
+    </h4>
+    <a href="@Url.Action("ClearCart", "Cart")"
+       class="btn btn-danger">
+        Xóa toàn bộ giỏ hàng
+    </a>
+}
+else
+{
+    <p>Giỏ hàng đang trống.</p>
+}
+<br />
+
+<a href="@Url.Action("Index", "Home")" class="btn btn-primary">
+    Tiếp tục mua hàng
+</a>

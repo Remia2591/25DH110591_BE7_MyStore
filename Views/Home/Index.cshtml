@@ -1,0 +1,36 @@
+﻿@model _25DH110591_MyStore.Models.ViewModel.HomeProductVM
+
+@{
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<div style="margin-top:20px;">
+
+    <div style="padding:30px; background:#f5f5f5; text-align:center; margin-bottom:25px;">
+        <h1>MY STORE</h1>
+        <p>Chào mừng bạn đến với cửa hàng</p>
+    </div>
+
+    <div style="margin-bottom:25px;">
+        @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+        {
+            @Html.TextBoxFor(model => model.SearchTerm,
+                     new
+                     {
+                         @class = "form-control",
+                         placeholder = "Nhập tên, mô tả hoặc danh mục sản phẩm",
+                         style = "display:inline-block; width:400px;"
+                     })
+
+            <button type="submit" class="btn btn-primary">
+                Tìm kiếm
+            </button>
+        }
+    </div>
+
+    @Html.Partial("_PVFeatureProduct", Model)
+    <hr />
+    @Html.Partial("_PVNewProduct", Model)
+
+</div>

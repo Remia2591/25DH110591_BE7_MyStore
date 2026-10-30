@@ -1,0 +1,80 @@
+﻿@model _25DH110591_MyStore.Models.ViewModel.HomeProductVM
+@using PagedList.Mvc
+<style>
+    .pagination-container {
+        margin-top: 20px;
+    }
+
+    .pagination {
+        display: flex;
+        list-style: none;
+        padding-left: 0;
+        gap: 6px;
+    }
+
+        .pagination li a,
+        .pagination li span {
+            display: inline-block;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #333;
+            background: white;
+        }
+
+            .pagination li a:hover {
+                background: #f0f0f0;
+            }
+
+        .pagination .active span {
+            font-weight: bold;
+            background: #333;
+            color: white;
+            border-color: #333;
+        }
+</style>
+
+@if (Model.NewProducts != null && Model.NewProducts.Count > 0)
+{
+    <section>
+        <h2>Sản phẩm mới</h2>
+
+        <div style="display:flex; flex-wrap:wrap; gap:15px;">
+            @foreach (var product in Model.NewProducts)
+            {
+                <div style="width:180px; border:1px solid #ccc; padding:10px;">
+                    <a href="@Url.Action("ProductDetail", "Home", new { id = product.ProductID })">
+                        @if (!string.IsNullOrEmpty(product.ProductImage))
+                        {
+                            <img src="@Url.Content("~/Content/Images/" + product.ProductImage)"
+                                 style="width:100%; height:180px; object-fit:contain;" />
+                        }
+                    </a>
+
+                    <p>
+                        <strong>@product.ProductName</strong>
+                    </p>
+
+                    <p>
+                        @product.ProductPrice
+                    </p>
+
+                    <p>
+                        @product.Category.CategoryName
+                    </p>
+                </div>
+            }
+        </div>
+
+        <div class="pagination-container">
+            @Html.PagedListPager(
+                     Model.NewProducts,
+                     page => Url.Action("Index", new {page = page,searchTerm = Model.SearchTerm}))
+        </div>
+    </section>
+}
+else
+{
+    <p>Không có sản phẩm phù hợp.</p>
+}
